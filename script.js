@@ -11,6 +11,7 @@ Array.prototype.myMap = function(cbFn) {
 const arr = [1, 23, 34].myMap((item, idx, arr) => {
     return item + arr[idx];
 })
+console.log('map');
 console.log(arr);
 //============================================================array myFilter
 
@@ -41,68 +42,87 @@ const users = [{
         age: 29,
     },
 ];
-
+console.log('filter');
 console.log(users.myFilter(item => item.age > 18));
 console.log(arrFiltered);
-//======================================================================array mySplit
+//======================================================================array myJoin
 
-Array.prototype.mySplit = function (separator, length){
-    let strLength = this.length;
-    console.log(strLength);
-    if(length!=undefined){
-        strLength = length;
+Array.prototype.myJoin = function(separator) {
+    let strSeparator = separator;
+    if (separator === undefined) {
+        strSeparator = ',';
     }
     let newString = '';
-    for (let i = 0; i < strLength; i++) {
-        if (i === strLength - 1) {
+    for (let i = 0; i < this.length; i++) {
+        if (i === this.length - 1) {
             newString += `${this[i]}`;
         } else {
-            newString +=`${this[i]}${separator}`;
+            newString += `${this[i]}${strSeparator}`;
         }
     }
     return newString;
 };
-
-console.log([1,3,4,5].mySplit(' '));
+console.log('join');
+console.log([1, 3, 4, 5].myJoin(''));
 
 //============================================array my|Find
-Array.prototype.myFind = function(cbFn){
+Array.prototype.myFind = function(cbFn) {
     let out;
-    for(let i=0; i < this.length; i++){
-        if(cbFn(this[i], i, this)){
-            out = this[i];           
+    for (let i = 0; i < this.length; i++) {
+        if (cbFn(this[i], i, this)) {
+            out = this[i];
         }
     }
     return out;
 };
-console.log(users.myFind(item => item.name=='user1'));
-console.log([1,24,4,6,6].myFind(item=>item==24));
+console.log('find');
+console.log(users.myFind(item => item.name === 'user1'));
+console.log([1, 24, 4, 6, 6].myFind(item => item === 24));
 
 //===============================================array myFindIndex
-Array.prototype.myFindIndex = function(cbFn){
+Array.prototype.myFindIndex = function(cbFn) {
     let index;
-    for(let i =0; i<this.length; i++){
-        if(cbFn(this[i],i,this)){
+    for (let i = 0; i < this.length; i++) {
+        if (cbFn(this[i], i, this)) {
             index = i;
         }
     }
     return index;
 };
-
-console.log([1,2,53,843].myFindIndex(item => item==53));
+console.log('findIndex')
+console.log([1, 2, 53, 843].myFindIndex(item => item == 53));
 //===============================================array myReduce
-Array.prototype.myReduce = function(cbFn,acc){
+Array.prototype.myReduce = function(cbFn, acc) {
     let accumulator = acc;
     for (let i = 0; i < this.length; i++) {
         if (acc !== undefined) {
-          accumulator = cbFn.call(undefined, accumulator, this[i], i, this);
+            accumulator = cbFn.call(undefined, accumulator, this[i], i, this);
         } else {
-          accumulator = this[i];
+            accumulator = this[i];
         }
-      }
-      return accumulator;
+    }
+    return accumulator;
+};
+console.log('reduce');
+console.log([1, 2, 4, 6, 76].myReduce((acc, item) => { return item + acc }, 0));
+//============================================string Split
+String.prototype.mySplit = function(separator, length) {
+    const newArr = [];
+    let arrItem = '';
+    let strLength = this.length;
+    if (length) {
+        strLength = length;
+    };
+    for (let i = 0; i < strLength; i++) {
+        arrItem += this[i];
+        if (this[i] === separator) {
+            newArr.push(arrItem);
+            arrItem = '';
+        }
+    };
+    return newArr.push(arrItem);
 };
 
-console.log([1,2,4,6,76].myReduce((acc,item)=>{return item+acc},0));
-
-
+console.log('split');
+console.log('hello world'.split(' '));
+console.log('html,css,js'.split(','));
