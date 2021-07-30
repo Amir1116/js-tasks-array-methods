@@ -114,20 +114,20 @@ String.prototype.mySplit = function(separator, length) {
         strLength = length;
     };
     for (let i = 0; i < strLength; i++) {
-        arrItem += this[i];
-        console.log(arrItem);
+        arrItem += this[i];        
         if (this[i] === separator) {
             newArr.push(arrItem);
             arrItem = '';
         }
-    };
-    console.log(newArr);
+    };    
     newArr.push(arrItem);
     return newArr
 };
 
 console.log('split');
 console.log('hello world'.mySplit(' '));
+
+console.log('my string'.mySplit(' '))
 console.log('hello world'.split(' '));
 console.log('html,css,js'.split(','));
 
